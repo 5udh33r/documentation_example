@@ -1,0 +1,166 @@
+:mod:`e_calculator.e_calculator`
+================================
+
+.. py:module:: e_calculator.e_calculator
+
+
+Module Contents
+---------------
+
+
+.. py:class:: CalculateE(nsamples=100)
+
+   This is a class for finding the posterior value of ``e`` given
+   data sampled from a random normal distribution.
+
+   .. attribute:: data
+
+      The (faked) data we're using to populate the likelihood.
+      This are samples from a standard normal distribution.
+
+      :type: ndarray[float]
+
+   .. attribute:: chain
+
+      The MCMC chain. Set by the ``.run_mcmc()`` method.
+
+      :type: list[float]
+
+   .. attribute:: a_array
+
+      An array of uniformly sampled guesses for ``e``. Set by the
+      ``.uniformly_sample_space()`` method.
+
+      :type: list[float]
+
+   .. attribute:: posterior
+
+      The posterior probability for each guess of ``e`` given the data.
+      Set by the ``.uniformly_sample_space()`` method
+
+      :type: list[float]
+
+   .. rubric:: Examples
+
+   Calculate the best value using metropolis hastings:
+
+   >>> import e_calculator
+   >>> calculator = e_calculator.CalculateE(nsamples=200)
+   >>> calculator.run_mcmc(1.01, 10)
+   >>> calculator.plot(mcmc=True)
+
+   Calculate the best value using a uniform sampling of parameter space:
+
+   >>> import e_calculator
+   >>> calculator = e_calculator.CalculateE(nsamples=200)
+   >>> calculator.uniformly_sample_space(1.01, 7)
+   >>> calculator.plot(mcmc=False)
+
+   .. method:: _generate_data(self, nsamples)
+
+
+      Generate samples according to a gaussian distribution with mean 0 and stddev 1
+
+      :param nsamples: number of samples
+      :type nsamples: int
+
+      :returns: **data** -- List of samples from a standard normal of length nsamples.
+      :rtype: list
+
+
+   .. method:: calculate_posterior(self, a)
+
+
+      Calculate the posterior by calculating P(a|x) for each x
+
+      :param a: independent variable
+      :type a: float
+
+      :returns: **posterior** -- The posterior P(a|x) over each x.
+      :rtype: float
+
+
+   .. method:: plot(self, mcmc=True)
+
+
+      Produce validation plots.
+      If mcmc is False then a is plotted against the posterior
+      If mcmc is True then the chain is plotted against trial number
+
+      :param mcmc: defines which type of plot should be given
+      :type mcmc: bool
+
+      :returns:
+      :rtype: None
+
+
+   .. method:: uniformly_sample_space(self, a_min, a_max, ntrials=1000)
+
+
+      Uniformaly sample the parameter space from a_min to a_max with ntrails points
+      and find the posterior at each point. This method ets the ``.a_array`` and
+      ``.posterior`` attributes.
+
+      Inputs:
+      ---------
+      a_min: float
+          minimum value of a (inclusive); must be greater than 1
+      a_max: float
+          maximum value of a (exclusive)
+      ntrials: int
+          number of points used between a_min and a_max
+
+      :returns: The ``.a_array`` and ``.posterior`` attributes are mutated in place.
+      :rtype: None
+
+
+   .. method:: run_mcmc(self, a_min, a_max, ntrials=1000)
+
+
+      Run the metropolis hastings routine on the posterior to calculate a the
+      best value of a. This method sets the ``.chain`` attribute.
+
+      Inputs:
+      -------
+      a_min: float
+          minimum value of a (inclusive); must be greater than 1
+      a_max: float
+          maximum value of a (exclusive)
+      ntrials: int (default: 1000)
+          number of points used between a_min and a_max
+
+      :returns: The ``.chain`` attribute is mutated in place.
+      :rtype: None
+
+
+   .. method:: _check_inputs(self, a_min, a_max, ntrials)
+
+
+      Checks the validity of values input for a_min, a_max, and ntrials.
+
+
+   .. method:: restart_chain(self)
+
+
+      Initialize chain to start metropolis hastings with a new starting point
+
+
+   .. method:: metropolis_hastings(self, ntrials, a_min, a_max)
+
+
+      Perfom the Metropolis Hastings sampling algorithm.
+
+      Assumes generative function is uniformly distributed from 1 to 10.
+
+      :param ntrials: The length of the chain, including multiplicities
+      :type ntrials: int
+      :param a_min: The minimum value for the initial guess for ``e``
+      :type a_min: float
+      :param a_max: The maximum value for the initial guess for ``e``
+      :type a_max: float
+
+      :returns: **chain** -- The resulting chain from the MCMC routine
+      :rtype: list[float]
+
+
+

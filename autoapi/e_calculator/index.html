@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>e_calculator &#8212; E Calculator  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-e_calculator">
+<span id="e-calculator"></span><h1><a class="reference internal" href="#module-e_calculator" title="e_calculator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">e_calculator</span></code></a><a class="headerlink" href="#module-e_calculator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="e_calculator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">e_calculator.e_calculator</span></code></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="e_calculator.CalculateE">
+<em class="property">class </em><code class="sig-prename descclassname">e_calculator.</code><code class="sig-name descname">CalculateE</code><span class="sig-paren">(</span><em class="sig-param">nsamples=100</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class for finding the posterior value of <code class="docutils literal notranslate"><span class="pre">e</span></code> given
+data sampled from a random normal distribution.</p>
+<dl class="attribute">
+<dt id="e_calculator.CalculateE.data">
+<code class="sig-name descname">data</code><a class="headerlink" href="#e_calculator.CalculateE.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The (faked) data we’re using to populate the likelihood.
+This are samples from a standard normal distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ndarray[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="e_calculator.CalculateE.chain">
+<code class="sig-name descname">chain</code><a class="headerlink" href="#e_calculator.CalculateE.chain" title="Permalink to this definition">¶</a></dt>
+<dd><p>The MCMC chain. Set by the <code class="docutils literal notranslate"><span class="pre">.run_mcmc()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="e_calculator.CalculateE.a_array">
+<code class="sig-name descname">a_array</code><a class="headerlink" href="#e_calculator.CalculateE.a_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array of uniformly sampled guesses for <code class="docutils literal notranslate"><span class="pre">e</span></code>. Set by the
+<code class="docutils literal notranslate"><span class="pre">.uniformly_sample_space()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="e_calculator.CalculateE.posterior">
+<code class="sig-name descname">posterior</code><a class="headerlink" href="#e_calculator.CalculateE.posterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>The posterior probability for each guess of <code class="docutils literal notranslate"><span class="pre">e</span></code> given the data.
+Set by the <code class="docutils literal notranslate"><span class="pre">.uniformly_sample_space()</span></code> method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<p>Calculate the best value using metropolis hastings:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">e_calculator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span> <span class="o">=</span> <span class="n">e_calculator</span><span class="o">.</span><span class="n">CalculateE</span><span class="p">(</span><span class="n">nsamples</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span><span class="o">.</span><span class="n">run_mcmc</span><span class="p">(</span><span class="mf">1.01</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mcmc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Calculate the best value using a uniform sampling of parameter space:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">e_calculator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span> <span class="o">=</span> <span class="n">e_calculator</span><span class="o">.</span><span class="n">CalculateE</span><span class="p">(</span><span class="n">nsamples</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span><span class="o">.</span><span class="n">uniformly_sample_space</span><span class="p">(</span><span class="mf">1.01</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mcmc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="e_calculator.CalculateE._generate_data">
+<code class="sig-name descname">_generate_data</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">nsamples</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE._generate_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate samples according to a gaussian distribution with mean 0 and stddev 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nsamples</strong> (<em>int</em>) – number of samples</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – List of samples from a standard normal of length nsamples.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="e_calculator.CalculateE.calculate_posterior">
+<code class="sig-name descname">calculate_posterior</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">a</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE.calculate_posterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the posterior by calculating P(a|x) for each x</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a</strong> (<em>float</em>) – independent variable</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>posterior</strong> – The posterior P(a|x) over each x.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="e_calculator.CalculateE.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mcmc=True</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce validation plots.
+If mcmc is False then a is plotted against the posterior
+If mcmc is True then the chain is plotted against trial number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mcmc</strong> (<em>bool</em>) – defines which type of plot should be given</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="e_calculator.CalculateE.uniformly_sample_space">
+<code class="sig-name descname">uniformly_sample_space</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">a_min</em>, <em class="sig-param">a_max</em>, <em class="sig-param">ntrials=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE.uniformly_sample_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uniformaly sample the parameter space from a_min to a_max with ntrails points
+and find the posterior at each point. This method ets the <code class="docutils literal notranslate"><span class="pre">.a_array</span></code> and
+<code class="docutils literal notranslate"><span class="pre">.posterior</span></code> attributes.</p>
+<dl class="simple">
+<dt>a_min: float</dt><dd><p>minimum value of a (inclusive); must be greater than 1</p>
+</dd>
+<dt>a_max: float</dt><dd><p>maximum value of a (exclusive)</p>
+</dd>
+<dt>ntrials: int</dt><dd><p>number of points used between a_min and a_max</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">.a_array</span></code> and <code class="docutils literal notranslate"><span class="pre">.posterior</span></code> attributes are mutated in place.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="e_calculator.CalculateE.run_mcmc">
+<code class="sig-name descname">run_mcmc</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">a_min</em>, <em class="sig-param">a_max</em>, <em class="sig-param">ntrials=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE.run_mcmc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the metropolis hastings routine on the posterior to calculate a the
+best value of a. This method sets the <code class="docutils literal notranslate"><span class="pre">.chain</span></code> attribute.</p>
+<dl class="simple">
+<dt>a_min: float</dt><dd><p>minimum value of a (inclusive); must be greater than 1</p>
+</dd>
+<dt>a_max: float</dt><dd><p>maximum value of a (exclusive)</p>
+</dd>
+<dt>ntrials: int (default: 1000)</dt><dd><p>number of points used between a_min and a_max</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">.chain</span></code> attribute is mutated in place.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="e_calculator.CalculateE._check_inputs">
+<code class="sig-name descname">_check_inputs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">a_min</em>, <em class="sig-param">a_max</em>, <em class="sig-param">ntrials</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE._check_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the validity of values input for a_min, a_max, and ntrials.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="e_calculator.CalculateE.restart_chain">
+<code class="sig-name descname">restart_chain</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE.restart_chain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize chain to start metropolis hastings with a new starting point</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="e_calculator.CalculateE.metropolis_hastings">
+<code class="sig-name descname">metropolis_hastings</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ntrials</em>, <em class="sig-param">a_min</em>, <em class="sig-param">a_max</em><span class="sig-paren">)</span><a class="headerlink" href="#e_calculator.CalculateE.metropolis_hastings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perfom the Metropolis Hastings sampling algorithm.</p>
+<p>Assumes generative function is uniformly distributed from 1 to 10.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ntrials</strong> (<em>int</em>) – The length of the chain, including multiplicities</p></li>
+<li><p><strong>a_min</strong> (<em>float</em>) – The minimum value for the initial guess for <code class="docutils literal notranslate"><span class="pre">e</span></code></p></li>
+<li><p><strong>a_max</strong> (<em>float</em>) – The maximum value for the initial guess for <code class="docutils literal notranslate"><span class="pre">e</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>chain</strong> – The resulting chain from the MCMC routine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">E Calculator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../e_calculator/e_calculator.html"><code class="docutils literal notranslate"><span class="pre">e_calculator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Brent Follin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/autoapi/e_calculator/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
