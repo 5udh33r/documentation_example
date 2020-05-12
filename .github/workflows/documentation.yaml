@@ -12,7 +12,7 @@ jobs:
       with:
         docs-folder: "sphinx/"
         pre-build-command: |
-          pip install autoapi
+          pip install sphinx-autoapi
     - name: Commit documentation changes
       run: |
         git clone https://github.com/ammaraskar/sphinx-action-test.git --branch gh-pages --single-branch gh-pages
