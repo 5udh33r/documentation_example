@@ -8,12 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: install requirements
-      run: |
-        pip install autoapi
     - uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: "sphinx/"
+        pre-build-command: |
+          pip install autoapi
     - name: Commit documentation changes
       run: |
         git clone https://github.com/ammaraskar/sphinx-action-test.git --branch gh-pages --single-branch gh-pages
