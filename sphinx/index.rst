@@ -7,11 +7,11 @@ Welcome to E Calculator's documentation!
 ========================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 6
    :glob:
 
-   e_calculator/*
+   e_calculator/e_calculator
+
 
 Indices and tables
 ==================

@@ -28,15 +28,14 @@ author = 'Brent Follin'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-	"sphinx.ext.autodoc",  # Autodocuments functions from their docstrings 
-	"sphinx.ext.napoleon",  # Interprets numpy-style docstrings
-	"sphinx.ext.doctest", # Perform automatic test of docstring example code
-	"autoapi.sphinx",  # autodiscovers docstrings
-	"sphinx.ext.inheritance_diagram",  # required by default template
+    "sphinx.ext.autodoc",  # Autodocuments functions from their docstrings
+    "sphinx.ext.napoleon",  # Interprets numpy-style docstrings
+    "sphinx.ext.doctest",  # Perform automatic test of docstring example code
+    "autoapi.extension",  # autodiscovers docstrings
+    "sphinx.ext.inheritance_diagram",  # required by default template
 ]
 
-autoapi_modules = {"e_calculator": None}
-
+autoapi_dirs = ["../e_calculator"]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -51,7 +50,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
