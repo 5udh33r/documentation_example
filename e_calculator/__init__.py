@@ -1,1 +1,1 @@
-from e_calculator import CalculateE
+from .e_calculator import CalculateE
